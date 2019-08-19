@@ -2,11 +2,11 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
-//   template: './client/index.html',
-//   filename: './index.html',
-//   inject: 'body'
-// })
+const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
+  template: './client/index.html',
+  filename: './index.html',
+  inject: 'body'
+})
 
 module.exports = {
   entry: './client/index.js',
@@ -16,7 +16,7 @@ module.exports = {
   },
   devServer: {
     hot: true,
-    port: 8085,
+    port: 8080,
     proxy: [{
       context: ['/api'],
       'target': 'http://localhost:3000',
@@ -65,7 +65,7 @@ module.exports = {
       }
     ]
   },
-  // plugins: [HtmlWebpackPluginConfig],
+  plugins: [HtmlWebpackPluginConfig],
   stats: {
     colors: true
   }
