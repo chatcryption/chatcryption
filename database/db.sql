@@ -19,3 +19,4 @@ CREATE TABLE message_recipients (
   message_id INTEGER REFERENCES messages(message_id),
   is_read BOOLEAN,
 );
+

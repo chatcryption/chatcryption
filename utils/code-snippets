@@ -9,7 +9,7 @@ export PGPASSWORD='node_password'
 #
 dropdb -U $USER chatcryption_db;
 createdb -U $USER chatcryption_db;
-psql -U $USER chatcryption_db < ./config/db.sql
+psql -U $USER chatcryption_db < ./db.sql
 
 echo "chatcryption was configured";
 
@@ -18,23 +18,3 @@ echo "chatcryption was configured";
 echo "I am done I think!! :)";
 
 
-CREATE TABLE users (
-  user_id SERIAL PRIMARY KEY,
-  username VARCHAR,
-  password VARCHAR,
-  last_login TIMESTAMP
-);
-
-CREATE TABLE messages (
-  message_id SERIAL PRIMARY KEY,
-  author_id VARCHAR REFERENCES users(user_id),
-  recipient_id VARCHAR REFERENCES message_recipients(recipient_id)
-  message_body VARCHAR(280)
-  time_sent TIMESTAMP
-);
-
-CREATE TABLE message_recipients (
-  recipient_id SERIAL PRIMARY KEY REFERENCES users(user_id),
-  message_id INTEGER REFERENCES messages(message_id),
-  is_read BOOLEAN,
-);
