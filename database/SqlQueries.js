@@ -1,4 +1,5 @@
 // will need to come back and parse out the current user
+// 4:41 8/20 need to add query for last login
 const SqlQueries = {
   getAllUsers: `SELECT user_id, username FROM users
     `,

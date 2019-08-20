@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-
 const app = express();
 const dbController = require('./controllers/dbController');
 const bodyParser = require('body-parser');
@@ -11,7 +10,6 @@ app.use('/build', express.static('build'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 
 
 app.get('/', (req, res) => {
