@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+echo "Configuring database"
+
+export PGPASSWORD='node_password'
+
+#
+# Should grab your username
+#
+dropdb -U $USER chatcryption_db;
+createdb -U $USER chatcryption_db;
+psql -U $USER chatcryption_db < ./db.sql
+
+echo "chatcryption was configured";
+
+// node ./config/asyncFakeData.js
+
+echo "I am done I think!! :)";
+
+
