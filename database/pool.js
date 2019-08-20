@@ -33,7 +33,7 @@ pool.query(createUserTable, (err, result) => {
   if (err) {
     console.log('error in creating User table', err);
   } else {
-    console.log('user table successfully created', result);
+    console.log('user table successfully created');
   }
 });
 
@@ -41,7 +41,7 @@ pool.query(createMessagesTable, (err, result) => {
   if (err) {
     console.log('error in creating message table', err);
   } else {
-    console.log('messages table successfully created', result);
+    console.log('messages table successfully created');
   }
 });
 
@@ -49,7 +49,7 @@ pool.query(createMessageRecipientsTable, (err, result) => {
   if (err) {
     console.log('error in creating recipients table', err);
   } else {
-    console.log('messages recipients table successfully created', result);
+    console.log('messages recipients table successfully created');
   }
 });
 

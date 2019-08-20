@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+const pool = require('../database/pool');
 
 app.use('/build', express.static('build'));
 
