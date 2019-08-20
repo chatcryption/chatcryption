@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/chatcryption/chatcryption#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "html-webpack-plugin": "^3.2.0",
     "nodemon": "^1.19.1",

@@ -9,6 +9,7 @@ const dbController = {
       }
       else {
         console.log('successfully retrieved users from db');
+        res.locals.allUsers = result;
       }
     })
     next();
@@ -21,6 +22,7 @@ const dbController = {
       }
       else {
         console.log('successfully retrieved conversation from db');
+        res.locals.conversation = result;
       }
     })
     next();
@@ -33,6 +35,7 @@ const dbController = {
       }
       else {
         console.log('successfully retrieved current user from db');
+        res.locals.currentUser = result;
       }
     })
     next();
@@ -45,6 +48,7 @@ const dbController = {
       }
       else {
         console.log('successfully posted message to db');
+        res.locals.postedMessage = result;
       }
     })
     next();
@@ -57,6 +61,7 @@ const dbController = {
       }
       else {
         console.log('successfully changed username db');
+        res.locals.newUsername = result;
       }
     })
     next();
@@ -69,6 +74,7 @@ const dbController = {
       }
       else {
         console.log('successfully changed password db');
+        res.locals.newPassword = result;
       }
     })
     next();
