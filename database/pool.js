@@ -8,31 +8,48 @@ const pool = new Pool({
   // password: 'ilovetesting'
 });
 
-const createTables = `CREATE TABLE IF NOT EXISTS users (
-    user_id SERIAL PRIMARY KEY,
-    username VARCHAR,
-    email VARCHAR NOT NULL,
-    password VARCHAR,
-    last_login TIMESTAMP
-  )
-  CREATE TABLE IF NOT EXISTS messages (
-    message_id SERIAL PRIMARY KEY,
-    author_id VARCHAR REFERENCES users(user_id),
-    recipient_id VARCHAR REFERENCES message_recipients(recipient_id),
-    message_body VARCHAR(280),
-    time_sent TIMESTAMP
-  )
-  CREATE TABLE IF NOT EXISTS message_recipients (
-    recipient_id SERIAL PRIMARY KEY REFERENCES users(user_id),
-    message_id INTEGER REFERENCES messages(message_id),
-    is_read BOOLEAN,
-  );`
+const createUserTable = `CREATE TABLE IF NOT EXISTS users (
+  user_id SERIAL PRIMARY KEY,
+  username VARCHAR,
+  email VARCHAR NOT NULL,
+  password VARCHAR,
+  last_login TIMESTAMP
+)`
+  
+const createMessagesTable = `CREATE TABLE IF NOT EXISTS messages (
+  message_id SERIAL PRIMARY KEY,
+  author_id INTEGER REFERENCES users(user_id),
+  message_body VARCHAR(280),
+  time_sent TIMESTAMP
+)`
 
-pool.query(createTables, (err, result) => {
+const createMessageRecipientsTable = `CREATE TABLE IF NOT EXISTS message_recipients (
+  recipient_id SERIAL PRIMARY KEY REFERENCES users(user_id),
+  message_id INTEGER REFERENCES messages(message_id),
+  is_read BOOLEAN
+)`
+
+pool.query(createUserTable, (err, result) => {
   if (err) {
-    console.log('error in creating table', err);
+    console.log('error in creating User table', err);
   } else {
-    console.log('table successfully created', result);
+    console.log('user table successfully created', result);
+  }
+});
+
+pool.query(createMessagesTable, (err, result) => {
+  if (err) {
+    console.log('error in creating message table', err);
+  } else {
+    console.log('messages table successfully created', result);
+  }
+});
+
+pool.query(createMessageRecipientsTable, (err, result) => {
+  if (err) {
+    console.log('error in creating recipients table', err);
+  } else {
+    console.log('messages recipients table successfully created', result);
   }
 });
 
