@@ -9,14 +9,13 @@ CREATE TABLE users (
 CREATE TABLE messages (
   message_id SERIAL PRIMARY KEY,
   author_id INTEGER REFERENCES users(user_id),
-  sent_to INTEGER REFERENCES users(user_id),
   message_body VARCHAR(280),
   time_sent TIMESTAMP
 );
 
 CREATE TABLE message_recipients (
   recipient_id SERIAL PRIMARY KEY REFERENCES users(user_id),
-  sent_to INTEGER REFERENCES messages(sent_to),
+  sent_to INTEGER REFERENCES users(user_id),
   message_id INTEGER REFERENCES messages(message_id),
   is_read BOOLEAN
 );
