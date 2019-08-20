@@ -16,6 +16,8 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
+// need an endpoint for the most recent message from each contact
+
 app.get('/conversation', dbController.conversation, (req, res) => {
   res.status(200)
     .json(res.locals.conversation)

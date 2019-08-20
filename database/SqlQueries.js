@@ -1,5 +1,6 @@
 // will need to come back and parse out the current user
 // 4:41 8/20 need to add query for last login
+// 7:54 8/20 need to add query for most recent message for each converstation
 const SqlQueries = {
   getAllUsers: `SELECT user_id, username FROM users
     `,
