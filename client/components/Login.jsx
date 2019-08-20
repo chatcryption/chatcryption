@@ -7,7 +7,9 @@ export default function Login() {
       <br />
       <input type="password" placeholder="password" />
       <br />
-      <button>Login</button>
+      <button type="submit">
+        Login
+      </button>
     </div>
   );
 }

@@ -10,7 +10,6 @@ export default function NavBar() {
       <ul className="navBarMenu">
         <Link to="/messages"><li>Messages</li></Link>
         <Link to="/contacts"><li>Contacts</li></Link>
-
       </ul>
       <Link to="/profile">Profile</Link>
     </nav>
