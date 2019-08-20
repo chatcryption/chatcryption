@@ -13,7 +13,7 @@ psql -U $USER chatcryption_db < ./config/db.sql
 
 echo "chatcryption was configured";
 
-node ./config/asyncFakeData.js
+// node ./config/asyncFakeData.js
 
 echo "I am done I think!! :)";
 
