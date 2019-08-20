@@ -6,7 +6,7 @@ const pool = new Pool({
   max: 9,
   // user: 'admin',
   // password: 'ilovetesting'
-})
+});
 
 const createTables = `CREATE TABLE IF NOT EXISTS users (
     user_id SERIAL PRIMARY KEY,
@@ -30,9 +30,9 @@ const createTables = `CREATE TABLE IF NOT EXISTS users (
 
 pool.query(createTables, (err, result) => {
   if (err) {
-    console.log('error in creating table')
+    console.log('error in creating table', err);
   } else {
-    console.log('table successfully created')
+    console.log('table successfully created', result);
   }
 });
 
