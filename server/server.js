@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const dbController = require('./controllers/dbController');
+const authController = require('./controllers/authController');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
 
@@ -15,6 +16,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
+
+app.post('/login', dbController.authorization, authController.setCookie, (req, res) => {
+  res.status(200)
+    .redirect(path.join(__dirname, '../client/index.html'))
+})
 
 // need an endpoint for the most recent message from each contact
 

@@ -1,7 +1,21 @@
 const pool = require('../../database/pool');
-const { getAllUsers, getConversation, getCurrentUser, postMessage, putPassword, putUsername, getLastestMessage } = require('../../database/SqlQueries');
+const { getAllUsers, getConversation, getCurrentUser, postMessage, putPassword, putUsername, getLastestMessage, authorizeUser } = require('../../database/SqlQueries');
 
 const dbController = {
+  authorization: (req, res, next) => {
+    pool.query(authorizeUser, [req.body.username, req.body.password], (err, result) => {
+      if (err) {
+        res.status(500)
+          .send('Access denied')
+      }
+      else {
+        console.log('successfully retrieved users from db');
+        res.locals.user = result;
+        next();
+      }
+    })
+  },
+
   users: (req, res, next) => {
     pool.query(getAllUsers, (err, result) => {
       if (err) {

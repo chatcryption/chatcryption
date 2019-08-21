@@ -2,21 +2,28 @@
 // 4:41 8/20 need to add query for last login
 // 7:54 8/20 need to add query for most recent message for each converstation
 const SqlQueries = {
+  authorizeUser: `SELECT username, password
+    FROM
+      users
+    WHERE username = $1
+      AND
+        password = $2
+  `,
   getAllUsers: `SELECT user_id, username FROM users
     `,
   getCurrentUser: `SELECT * 
     FROM users 
-      WHERE (user_id = $1)
+      WHERE user_id = $1
     `,
   getConversation: `SELECT message_body, time_sent, is_read, author_id, sent_to 
     FROM messages 
     INNER JOIN 
       message_recipients 
-    ON (messages.message_id = message_recipients.message_id) 
-      WHERE (author_id = $1)
-        AND (sent_to = $2)
-        OR (author_id = $2)
-        AND (sent_to = $1)
+    ON messages.message_id = message_recipients.message_id
+      WHERE author_id = $1
+        AND sent_to = $2
+        OR author_id = $2
+        AND sent_to = $1
     `,
   getLastestMessage: `SELECT * 
     FROM messages
