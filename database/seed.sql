@@ -12,12 +12,13 @@ INSERT INTO users
 INSERT INTO messages
   (author_id, message_body, time_sent)
   VALUES
-    ((SELECT user_id FROM users WHERE username = 'dan'), 'hello there', NOW()),
+    ((SELECT user_id FROM users WHERE username = 'dan'), 'hello there 1', NOW()),
     ((SELECT user_id FROM users WHERE username = 'dillon'), 'how are you?', NOW()),
-    ((SELECT user_id FROM users WHERE username = 'dan'), 'hello there', NOW()),
+    ((SELECT user_id FROM users WHERE username = 'dan'), 'hello there 2', NOW()),
     ((SELECT user_id FROM users WHERE username = 'eric'), 'whats up', NOW()),
-    ((SELECT user_id FROM users WHERE username = 'dan'), 'hello there', NOW()),
+    ((SELECT user_id FROM users WHERE username = 'dan'), 'hello there 3', NOW()),
     ((SELECT user_id FROM users WHERE username = 'jake'), 'my dude', NOW());
+
 
 
 INSERT INTO message_recipients

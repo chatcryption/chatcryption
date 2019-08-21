@@ -46,7 +46,7 @@ const dbController = {
   },
 
   message: (req, res, next) => {
-    pool.query(postMessage, [req.body.message], (err, result) => {
+    pool.query(postMessage, [req.body.recipientId, req.body.message, ], (err, result) => {
       if (err) {
         console.log('error in posting message to database')
         res.status(500)
