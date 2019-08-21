@@ -14,7 +14,7 @@ CREATE TABLE messages (
 );
 
 CREATE TABLE message_recipients (
-  recipient_id SERIAL PRIMARY KEY REFERENCES users(user_id),
+  recipient_id SERIAL PRIMARY KEY,
   sent_to INTEGER REFERENCES users(user_id),
   message_id INTEGER REFERENCES messages(message_id),
   is_read BOOLEAN

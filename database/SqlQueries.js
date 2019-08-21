@@ -8,15 +8,15 @@ const SqlQueries = {
     FROM users 
       WHERE (user_id = $1)
     `,
-  getConversation: `SELECT message_body, time_sent, is_read, author_id, recipient_id 
+  getConversation: `SELECT message_body, time_sent, is_read, author_id, sent_to 
     FROM messages 
     INNER JOIN 
       message_recipients 
-    ON (messages.recipient_id = message_recipients.recipient_id) 
-      WHERE (author_id = $1)
-        AND (recipient_id = $2)
-        AND (author_id = $2)
-        AND (recipient_id = $1)
+    ON (messages.message_id = message_recipients.message_id) 
+      WHERE (author_id = 1)
+        AND (sent_to = 2)
+        OR (author_id = 2)
+        AND (sent_to = 1)
     `,
   getLastestMessage: `SELECT messages.*
     FROM 
@@ -32,7 +32,7 @@ const SqlQueries = {
       messages.time_sent = latest_messages.time_sent AND
       messages.author_id = latest_messages.author_id
     WHERE NOT
-      latest_messages.author_id = 1
+      latest_messages.author_id = 2
     `,
 
   postMessage:`INSERT INTO messages
