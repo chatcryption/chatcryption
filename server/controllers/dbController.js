@@ -1,7 +1,35 @@
 const pool = require('../../database/pool');
-const { getAllUsers, getConversation, getCurrentUser, postMessage, putPassword, putUsername } = require('../../database/SqlQueries');
+const { getAllUsers, getConversation, getCurrentUser, postMessage, putPassword, putUsername, getLastestMessage, authorizeUser, getUserId } = require('../../database/SqlQueries');
 
 const dbController = {
+  checkUserId: (req, res, next) => {
+    pool.query(getUserId, [req.cookie.token], (err, result) => {
+      if (err) {
+        res.status(500)
+          .send('Access denied')
+      }
+      else {
+        console.log('user_id checks out');
+        res.locals.user_id = result;
+        next();
+      }
+    })
+  },
+
+  authorization: (req, res, next) => {
+    pool.query(authorizeUser, [req.body.username, req.body.password], (err, result) => {
+      if (err) {
+        res.status(500)
+          .send('Access denied')
+      }
+      else {
+        console.log('successfully retrieved users from db');
+        res.locals.user = result;
+        next();
+      }
+    })
+  },
+
   users: (req, res, next) => {
     pool.query(getAllUsers, (err, result) => {
       if (err) {
@@ -46,7 +74,7 @@ const dbController = {
   },
 
   message: (req, res, next) => {
-    pool.query(postMessage, [req.body.message], (err, result) => {
+    pool.query(postMessage, [req.body.recipientId, req.body.message, ], (err, result) => {
       if (err) {
         console.log('error in posting message to database')
         res.status(500)
@@ -55,6 +83,21 @@ const dbController = {
       else {
         console.log('successfully posted message to db');
         res.locals.postedMessage = result;
+      }
+    })
+    next();
+  },
+
+  latestMessages: (req, res, next) => {
+    pool.query(getLastestMessage, [req.body.currentUser], (err, result) => {
+      if (err) {
+        console.log('error in retrieving latest messages from database')
+        res.status(500)
+          .send()
+      }
+      else {
+        console.log('successfully retrieved latest messages from db');
+        res.locals.latestMessages = result;
       }
     })
     next();

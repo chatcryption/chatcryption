@@ -24,34 +24,36 @@ const createMessagesTable = `CREATE TABLE IF NOT EXISTS messages (
 )`
 
 const createMessageRecipientsTable = `CREATE TABLE IF NOT EXISTS message_recipients (
-  recipient_id SERIAL PRIMARY KEY REFERENCES users(user_id),
+  recipient_id SERIAL PRIMARY KEY,
   sent_to INTEGER REFERENCES users(user_id),
   message_id INTEGER REFERENCES messages(message_id),
   is_read BOOLEAN
 )`
 
-pool.query(createUserTable, (err, result) => {
-  if (err) {
-    console.log('error in creating User table', err);
-  } else {
-    console.log('users table successfully created');
-  }
-});
+pool.query(createUserTable)
+  .then(pool.query(createMessagesTable)
+  .then(pool.query(createMessageRecipientsTable))
+  .then(console.log('tables successfully created'))
+  .catch(err => {
+    if (err) {
+      throw new Error('error in creating database tables')
+    }
+  }));
 
-pool.query(createMessagesTable, (err, result) => {
-  if (err) {
-    console.log('error in creating message table', err);
-  } else {
-    console.log('messages table successfully created');
-  }
-});
+// pool.query(createMessagesTable, (err, result) => {
+//   if (err) {
+//     console.log('error in creating message table', err);
+//   } else {
+//     console.log('messages table successfully created');
+//   }
+// });
 
-pool.query(createMessageRecipientsTable, (err, result) => {
-  if (err) {
-    console.log('error in creating recipients table', err);
-  } else {
-    console.log('messages recipients table successfully created');
-  }
-});
+// pool.query(createMessageRecipientsTable, (err, result) => {
+//   if (err) {
+//     console.log('error in creating recipients table', err);
+//   } else {
+//     console.log('messages recipients table successfully created');
+//   }
+// });
 
 module.exports = pool;
