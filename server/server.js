@@ -23,12 +23,12 @@ app.get('/conversation', dbController.conversation, (req, res) => {
     .json(res.locals.conversation)
 });
 
-app.get('/users', (req, res) => {
+app.get('/users', dbController.users, (req, res) => {
   res.status(200)
     .json(res.locals.allUsers)
 });
 
-app.get('/currentUser', (req, res) => {
+app.get('/currentUser', dbController.currentUser, (req, res) => {
   res.status(200)
     .json(res.locals.currentUser)
 });
@@ -38,17 +38,17 @@ app.get('/latestMessage', dbController.latestMessages, (req, res) => {
     .json(res.locals.latestMessages)
 })
 
-app.post('/message', (req, res) => {
+app.post('/message', dbController.message, (req, res) => {
   res.status(200)
     .json(res.locals.postedMessage)
 });
 
-app.put('/username', (req, res) => {
+app.put('/username', dbController.username, (req, res) => {
   res.status(200)
     .json(res.locals.newUsername)
 });
 
-app.put('/password', (req, res) => {
+app.put('/password', dbController.password, (req, res) => {
   res.status(200)
     .json(res.locals.newPassword)
 })
