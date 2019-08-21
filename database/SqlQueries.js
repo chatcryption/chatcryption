@@ -9,6 +9,11 @@ const SqlQueries = {
       AND
         password = $2
   `,
+  getUserId: `SELECT user_id
+    FROM
+      users
+    WHERE user_id = $1
+  `,
   getAllUsers: `SELECT user_id, username FROM users
     `,
   getCurrentUser: `SELECT * 

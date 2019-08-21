@@ -44,7 +44,7 @@ app.get('/latestMessage', dbController.latestMessages, (req, res) => {
     .json(res.locals.latestMessages)
 })
 
-app.post('/message', dbController.message, (req, res) => {
+app.post('/message', dbController.checkUserId, dbController.message, (req, res) => {
   res.status(200)
     .json(res.locals.postedMessage)
 });

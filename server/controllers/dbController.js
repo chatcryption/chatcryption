@@ -1,7 +1,21 @@
 const pool = require('../../database/pool');
-const { getAllUsers, getConversation, getCurrentUser, postMessage, putPassword, putUsername, getLastestMessage, authorizeUser } = require('../../database/SqlQueries');
+const { getAllUsers, getConversation, getCurrentUser, postMessage, putPassword, putUsername, getLastestMessage, authorizeUser, getUserId } = require('../../database/SqlQueries');
 
 const dbController = {
+  checkUserId: (req, res, next) => {
+    pool.query(getUserId, [req.cookie.token], (err, result) => {
+      if (err) {
+        res.status(500)
+          .send('Access denied')
+      }
+      else {
+        console.log('user_id checks out');
+        res.locals.user_id = result;
+        next();
+      }
+    })
+  },
+
   authorization: (req, res, next) => {
     pool.query(authorizeUser, [req.body.username, req.body.password], (err, result) => {
       if (err) {
