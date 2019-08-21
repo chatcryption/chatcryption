@@ -30,28 +30,30 @@ const createMessageRecipientsTable = `CREATE TABLE IF NOT EXISTS message_recipie
   is_read BOOLEAN
 )`
 
-pool.query(createUserTable, (err, result) => {
-  if (err) {
-    console.log('error in creating User table', err);
-  } else {
-    console.log('users table successfully created');
-  }
-});
+pool.query(createUserTable)
+  .then(pool.query(createMessagesTable)
+  .then(pool.query(createMessageRecipientsTable))
+  .then(console.log('tables successfully created'))
+  .catch(err => {
+    if (err) {
+      throw new Error('error in creating database tables')
+    }
+  }));
 
-pool.query(createMessagesTable, (err, result) => {
-  if (err) {
-    console.log('error in creating message table', err);
-  } else {
-    console.log('messages table successfully created');
-  }
-});
+// pool.query(createMessagesTable, (err, result) => {
+//   if (err) {
+//     console.log('error in creating message table', err);
+//   } else {
+//     console.log('messages table successfully created');
+//   }
+// });
 
-pool.query(createMessageRecipientsTable, (err, result) => {
-  if (err) {
-    console.log('error in creating recipients table', err);
-  } else {
-    console.log('messages recipients table successfully created');
-  }
-});
+// pool.query(createMessageRecipientsTable, (err, result) => {
+//   if (err) {
+//     console.log('error in creating recipients table', err);
+//   } else {
+//     console.log('messages recipients table successfully created');
+//   }
+// });
 
 module.exports = pool;

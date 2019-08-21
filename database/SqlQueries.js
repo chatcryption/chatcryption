@@ -25,7 +25,7 @@ const SqlQueries = {
     ON
       messages.message_id = message_recipients.message_id
     WHERE
-      message_recipients.sent_to = $1
+      message_recipients.sent_to = 1
     `,
 
   postMessage:`INSERT INTO messages
