@@ -1,5 +1,5 @@
 const pool = require('../../database/pool');
-const { getAllUsers, getConversation, getCurrentUser, postMessage, putPassword, putUsername } = require('../../database/SqlQueries');
+const { getAllUsers, getConversation, getCurrentUser, postMessage, putPassword, putUsername, getLastestMessage } = require('../../database/SqlQueries');
 
 const dbController = {
   users: (req, res, next) => {
@@ -55,6 +55,21 @@ const dbController = {
       else {
         console.log('successfully posted message to db');
         res.locals.postedMessage = result;
+      }
+    })
+    next();
+  },
+
+  latestMessages: (req, res, next) => {
+    pool.query(getLastestMessage, [req.body.currentUser], (err, result) => {
+      if (err) {
+        console.log('error in retrieving latest messages from database')
+        res.status(500)
+          .send()
+      }
+      else {
+        console.log('successfully retrieved latest messages from db');
+        res.locals.latestMessages = result;
       }
     })
     next();

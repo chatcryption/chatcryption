@@ -9,13 +9,32 @@ const SqlQueries = {
       WHERE (user_id = $1)
     `,
   getConversation: `SELECT message_body, time_sent, is_read, author_id, recipient_id 
-    FROM messages INNER JOIN message_recipients 
-      ON (messages.recipient_id = message_recipients.recipient_id) 
-        WHERE (author_id = $1)
-          AND (recipient_id = $2)
-          AND (author_id = $2)
-          AND (recipient_id = $1)
+    FROM messages 
+    INNER JOIN 
+      message_recipients 
+    ON (messages.recipient_id = message_recipients.recipient_id) 
+      WHERE (author_id = $1)
+        AND (recipient_id = $2)
+        AND (author_id = $2)
+        AND (recipient_id = $1)
     `,
+  getLastestMessage: `SELECT messages.*
+    FROM 
+      (SELECT DISTINCT
+        author_id, MAX(time_sent) AS time_sent
+        FROM 
+          messages
+        GROUP BY
+          author_id) AS latest_messages
+    INNER JOIN
+      messages
+    ON
+      messages.time_sent = latest_messages.time_sent AND
+      messages.author_id = latest_messages.author_id
+    WHERE NOT
+      latest_messages.author_id = 1
+    `,
+
   postMessage:`INSERT INTO messages
     (author_id, recipient_id, message_body, time_sent)
       VALUES ($1, $2, $3, $4)
@@ -29,5 +48,9 @@ const SqlQueries = {
     WHERE user_id = $1
     `
 }
+
+
+// messages.message_body = latest_messages.message_body AND
+//       messages.is_read = latest_messages.is_read AND
 
 module.exports = SqlQueries;

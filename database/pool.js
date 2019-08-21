@@ -24,7 +24,7 @@ const createMessagesTable = `CREATE TABLE IF NOT EXISTS messages (
 )`
 
 const createMessageRecipientsTable = `CREATE TABLE IF NOT EXISTS message_recipients (
-  recipient_id SERIAL PRIMARY KEY REFERENCES users(user_id),
+  recipient_id SERIAL PRIMARY KEY,
   sent_to INTEGER REFERENCES users(user_id),
   message_id INTEGER REFERENCES messages(message_id),
   is_read BOOLEAN

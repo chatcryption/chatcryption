@@ -14,7 +14,10 @@ INSERT INTO messages
   VALUES
     ((SELECT user_id FROM users WHERE username = 'dan'), 'hello there', NOW()),
     ((SELECT user_id FROM users WHERE username = 'dillon'), 'how are you?', NOW()),
-    ((SELECT user_id FROM users WHERE username = 'dan'), 'I am fine', NOW());
+    ((SELECT user_id FROM users WHERE username = 'dan'), 'hello there', NOW()),
+    ((SELECT user_id FROM users WHERE username = 'eric'), 'whats up', NOW()),
+    ((SELECT user_id FROM users WHERE username = 'dan'), 'hello there', NOW()),
+    ((SELECT user_id FROM users WHERE username = 'jake'), 'my dude', NOW());
 
 
 INSERT INTO message_recipients
@@ -22,6 +25,9 @@ INSERT INTO message_recipients
   VALUES 
     ((SELECT user_id FROM users WHERE user_id = 2), (SELECT message_id FROM messages WHERE message_id = 1), true),
     ((SELECT user_id FROM users WHERE user_id = 1), (SELECT message_id FROM messages WHERE message_id = 2), true),
-    ((SELECT user_id FROM users WHERE user_id = 2), (SELECT message_id FROM messages WHERE message_id = 3), true);
+    ((SELECT user_id FROM users WHERE user_id = 3), (SELECT message_id FROM messages WHERE message_id = 3), true),
+    ((SELECT user_id FROM users WHERE user_id = 1), (SELECT message_id FROM messages WHERE message_id = 4), true),
+    ((SELECT user_id FROM users WHERE user_id = 4), (SELECT message_id FROM messages WHERE message_id = 5), true),
+    ((SELECT user_id FROM users WHERE user_id = 1), (SELECT message_id FROM messages WHERE message_id = 6), true);
 
 

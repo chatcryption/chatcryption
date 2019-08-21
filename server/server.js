@@ -33,6 +33,11 @@ app.get('/currentUser', (req, res) => {
     .json(res.locals.currentUser)
 });
 
+app.get('/latestMessage', dbController.latestMessages, (req, res) => {
+  res.status(200)
+    .json(res.locals.latestMessages)
+})
+
 app.post('/message', (req, res) => {
   res.status(200)
     .json(res.locals.postedMessage)
