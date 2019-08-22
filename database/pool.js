@@ -15,7 +15,7 @@ const createUserTable = `CREATE TABLE IF NOT EXISTS users (
   password VARCHAR,
   last_login TIMESTAMP
 )`
-  
+
 const createMessagesTable = `CREATE TABLE IF NOT EXISTS messages (
   message_id SERIAL PRIMARY KEY,
   author_id INTEGER REFERENCES users(user_id),
@@ -30,15 +30,20 @@ const createMessageRecipientsTable = `CREATE TABLE IF NOT EXISTS message_recipie
   is_read BOOLEAN
 )`
 
-pool.query(createUserTable)
-  .then(pool.query(createMessagesTable)
-  .then(pool.query(createMessageRecipientsTable))
-  .then(console.log('tables successfully created'))
-  .catch(err => {
-    if (err) {
-      throw new Error('error in creating database tables')
-    }
-  }));
+// trust me, i'm a doctor. Don't look too deeply into the abyss
+// pool.query(createUserTable, (err, result) => {
+//   pool.query(createMessagesTable, (err, result) => {
+//     pool.query(createMessageRecipientsTable, (err, result) => {
+//       if (err) {
+//         console.log('fuck you')
+//       }
+//       else {
+//         console.log('you did it')
+//       }
+//     })
+//   })
+// })
+
 
 // pool.query(createMessagesTable, (err, result) => {
 //   if (err) {
