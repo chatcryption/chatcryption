@@ -31,18 +31,18 @@ const createMessageRecipientsTable = `CREATE TABLE IF NOT EXISTS message_recipie
 )`
 
 // trust me, i'm a doctor. Don't look too deeply into the abyss
-pool.query(createUserTable, (err, result) => {
-  pool.query(createMessagesTable, (err, result) => {
-    pool.query(createMessageRecipientsTable, (err, result) => {
-      if (err) {
-        console.log('fuck you')
-      }
-      else {
-        console.log('you did it')
-      }
-    })
-  })
-})
+// pool.query(createUserTable, (err, result) => {
+//   pool.query(createMessagesTable, (err, result) => {
+//     pool.query(createMessageRecipientsTable, (err, result) => {
+//       if (err) {
+//         console.log('fuck you')
+//       }
+//       else {
+//         console.log('you did it')
+//       }
+//     })
+//   })
+// })
 
 
 // pool.query(createMessagesTable, (err, result) => {
